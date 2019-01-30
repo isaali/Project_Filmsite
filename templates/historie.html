@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Kijkgeschiedenis
+{% endblock %}
+
+{% block main %}
+<style>
+.favoriet {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.favo {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.favoriet:hover {background: #eee;}
+.favo:hover {background: white;}
+
+.success {color: green;}
+.info {color: dodgerblue;}
+.warning {color: orange;}
+.gevaar {color: red;}
+.standaard {color: black;}
+grid {
+  display: grid;
+}
+
+</style>
+<div class="header">
+  <form action="/historie" method="post">
+    <center><h2>Kijkgeschiedenis</h2>
+      <button class="favo gevaar btn-sm" type="submit" name="geschiedenis">Wis mijn geschiedenis!</button>
+    </center>
+  </form>
+</div>
+<hr>
+
+<div class="grid">
+    <form action="/filminfo" method="post">
+      {% for film in historie %}
+      <button class="favoriet standaard" text-align="center" style="width:300px;" name="tmdb_id" value="{{film.film_id}}" type="submit"><img src="http://image.tmdb.org/t/p/w45{{film.afbeelding}}"></img><p>{{film.titel}}</p></button>
+      {% endfor %}
+    </form>
+</div>
+{% endblock %}

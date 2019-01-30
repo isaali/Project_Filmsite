@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Gezamenlijke lijst
+{% endblock %}
+
+{% block main %}
+<style>
+.favoriet {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.favo {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.favoriet:hover {background: #eee;}
+.favo:hover {background: white;}
+
+.success {color: green;}
+.info {color: dodgerblue;}
+.warning {color: orange;}
+.gevaar {color: red;}
+.standaard {color: black;}
+grid {
+  display: grid;
+}
+
+</style>
+
+<center>
+  <h2>
+    Gezamenlijke lijst "{{lijstnaam}}" met: <button type="submit" class="btn btn-outline-info btn-sm" name="submit" value="{{vriend}}">{{vriend}}</button>
+  </h2>
+</center>
+
+<hr>
+<div class="grid">
+    <form action="/filminfo" method="post">
+      {% for lijst in lijsten1 %}
+      <button class="favoriet standaard" text-align="center" style="width:300px;" name="tmdb_id" value="{{lijst.film_id}}" type="submit"><img src="http://image.tmdb.org/t/p/w45{{lijst.afbeelding}}"></img><p>{{lijst.titel}}</p></button>
+      {% endfor %}
+      {% for lijst in lijsten2 %}
+      <button class="favoriet standaard" text-align="center" style="width:300px;" name="tmdb_id" value="{{lijst.film_id}}" type="submit"><img src="http://image.tmdb.org/t/p/w45{{lijst.afbeelding}}"></img><p>{{lijst.titel}}</p></button>
+      {% endfor %}
+    </form>
+</div>
+{% endblock %}

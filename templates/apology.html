@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+
+<center style="padding-top:20px"><h2>Error {{ top }}</h2></center>
+<hr>
+<center><h3>{{ bottom }}</h3></center>
+<br>
+<center><button onclick="goBack()" class="btn btn-primary">Ga terug naar de vorige pagina</button></center>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+<form action="{{ url_for('login') }}" method="post">
+    <div class="panel panel-info" style="padding-top:40px">
+        <div class="panel-heading">
+            <center><div class="panel-title"><h1>Inloggen</h1></div>
+
+                <div style="padding-top:15px" class="panel-body" >
+
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                    <form id="loginform" class="form-horizontal" role="form">
+                        <div class="col-md-5 col-md-offset-3">
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus class="form-control" name="gebruiker-inloggen" placeholder="Gebruikersnaam" type="text" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-md-offset-3">
+                            <div class="form-group">
+                                <input class="form-control" name="wachtwoord-inloggen" placeholder="Wachtwoord" type="password" id="password" required/>
+                                <input type="checkbox" onclick="myFunction()"> Laat wachtwoord zien
+                            </div>
+                        </div>
+                        <div class="form-group"><h6><a href="{{ url_for('wachtwoord') }}">Wachtwoord vergeten?</a></h6></div>
+
+                        <div style="margin-top:10px" class="form-group">
+                            <!-- Button -->
+                            <div class="form-group">
+                                <div class="col-sm-12 controls">
+                                    <button class="btn btn-outline-success" type="submit">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 control">
+                                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                    <h6>
+                                        Heb je nog geen account?
+                                        <a href="{{ url_for('register') }}">Meld je hier dan aan!</a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </center>
+        </div>
+    </div>
+</form>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vriendenprofiel
+{% endblock %}
+
+{% block main %}
+<style type='text/css'>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+tr:nth-child(even) {
+  background-color: #e6e6e6;
+}
+</style>
+
+<center><strong><h2>Profiel van: {{profiel}}</h2></strong></center>
+<hr>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><u>Favorieten</u></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Favoriete films</th>
+          </tr>
+          <form action="/filminfo" method="post">
+            {% for favoriet in favorieten %}
+            <tr>
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{favoriet.film_id}}">{{favoriet.titel}}</button></td>
+            </tr>
+            {% endfor %}
+          </form>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><u>Check-ins</u></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Gekeken films</th>
+          </tr>
+          {% for checkin in checkins %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{checkin.film_id}}">{{checkin.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><u>Kijkgeschiedenis</u></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Titels</th>
+          </tr>
+          {% for historie in historie %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{historie.film_id}}">{{historie.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><u>Tips van vrienden voor {{profiel}}</u></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Titels</th>
+          </tr>
+          {% for tip in aanbevelingen %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{tip.film_id}}">{{tip.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><u>Vrienden</u></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Namen</th>
+          </tr>
+          {% for vriend in vrienden %}
+          <tr>
+            <form action="/vriendinfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="profiel" value="{{vriend.van}}">{{vriend.van}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+          {% for vriend in vrienden1 %}
+          <tr>
+            <form action="/vriendinfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="profiel1" value="{{vriend.naar}}">{{vriend.naar}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><u>Tips voor vrienden van {{profiel}}</u></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Titels</th>
+          </tr>
+          {% for tips in aanbevelingenvan %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{tips.film_id}}">{{tips.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

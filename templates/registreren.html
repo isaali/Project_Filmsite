@@ -1,0 +1,163 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Registreren
+{% endblock %}
+
+{% block main %}
+<style>
+/* The message box is shown when the user clicks on the password field */
+#bericht {
+  display:none;
+  background: white;
+  color: #000;
+  position: relative;
+}
+
+#bericht p {
+  font-size: 15px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+</style>
+
+<form action="{{ url_for('register') }}" method="post">
+    <div class="panel panel-info" style="padding-top:40px">
+        <div class="panel-heading">
+            <center><div class="panel-title"><h3><strong>Account aanmaken</strong></h3></div>
+
+                <div style="padding-top:0px" class="panel-body" >
+
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                    <form id="loginform" class="form-horizontal" role="form">
+
+                        <div class="col-md-5 col-md-offset-3">
+                            <div class="form-group">
+                                <input autocomplete="off" autofocus class="form-control" name="gebruikersnaam" id="gebruikersnaam" placeholder="Gebruikersnaam" type="text" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-md-offset-3">
+                            <div class="form-group">
+                                <input class="form-control" name="wachtwoord" id="wachtwoord" placeholder="Wachtwoord" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-md-offset-3">
+                            <div class="form-group">
+                                <input class="form-control" name="wachtwoord-confirmatie" placeholder="Bevestig wachtwoord" type="password" required/>
+                            </div>
+                        </div>
+
+                        <p><strong>Veiligheidsvraag: Wat is jouw lievelingskleur?</strong></p>
+
+                        <div class="col-md-5 col-md-offset-3">
+                            <div class = "form-group">
+                                <input class="form-control" name="veiligheidsvraag" placeholder="Beantwoord vraag" type ="text" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 controls">
+                                <button class="btn btn-outline-success btn-sm" type="submit" value="submit">Registreren</button>
+                                <hr>
+                                <h6>
+                                    Heb je al een account?
+                                    <a href="{{ url_for('login') }}">Log hier dan in!</a>
+                                </h6>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <div id="bericht">
+                        <h6><u>Je wachtwoord moet het volgende bevatten:</u></h6>
+                        <p id="letter" class="invalid"><b>Een kleine letter</b></p>
+                        <p id="hoofdletter" class="invalid"><b>Een hoofdletter</b></p>
+                        <p id="number" class="invalid"><b>Een nummer</b></p>
+                        <p id="length" class="invalid"><b>Minimaal 8 karakters</b></p>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+</form>
+
+<script>
+var mijninput = document.getElementById("wachtwoord");
+var letter = document.getElementById("letter");
+var hoofdletter = document.getElementById("hoofdletter");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+
+// When the user clicks on the password field, show the message box
+mijninput.onfocus = function() {
+  document.getElementById("bericht").style.display = "block";
+}
+
+// // When the user clicks outside of the password field, hide the message box
+// mijninput.onblur = function() {
+//   document.getElementById("bericht").style.display = "none";
+// }
+
+// When the user starts to type something inside the password field
+mijninput.onkeyup = function() {
+  // Validate lowercase letters
+  var kleineletter = /[a-z]/g;
+  if(mijninput.value.match(kleineletter)) {
+    letter.classList.remove("invalid");
+    letter.classList.add("valid");
+  } else {
+    letter.classList.remove("valid");
+    letter.classList.add("invalid");
+  }
+
+  // Validate capital letters
+  var hoofdletters = /[A-Z]/g;
+  if(mijninput.value.match(hoofdletters)) {
+    hoofdletter.classList.remove("invalid");
+    hoofdletter.classList.add("valid");
+  } else {
+    hoofdletter.classList.remove("valid");
+    hoofdletter.classList.add("invalid");
+  }
+
+  // Validate numbers
+  var numbers = /[0-9]/g;
+  if(mijninput.value.match(numbers)) {
+    number.classList.remove("invalid");
+    number.classList.add("valid");
+  } else {
+    number.classList.remove("valid");
+    number.classList.add("invalid");
+  }
+
+  // Validate length
+  if(mijninput.value.length >= 8) {
+    length.classList.remove("invalid");
+    length.classList.add("valid");
+  } else {
+    length.classList.remove("valid");
+    length.classList.add("invalid");
+  }
+}
+</script>
+{% endblock %}
+

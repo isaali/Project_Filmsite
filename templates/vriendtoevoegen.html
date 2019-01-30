@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vriend toevoegen
+{% endblock %}
+
+{% block main %}
+<style type='text/css'>
+  p {
+    padding: 35px;
+  }
+</style>
+<form action="{{ url_for('vriend') }}" method="post">
+  <p>
+    <center>
+      <h2><strong>Vriend toevoegen op gebruikersnaam</strong></h2>
+      <div class="text">
+        <h5>Voeg jouw vrienden toe en beleef heel veel kijkplezier!</h5>
+      </div>
+      <div class="col-md-5 col-md-offset-3">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" autocomplete="off" placeholder="Noem gebruikersnaam" name="vriend" aria-label="vriend" aria-describedby="button-addon2">
+          <button class="btn btn-outline-success" type="submit" id="submit">Voeg toe</button>
+        </div>
+      </div>
+    </center>
+  </p>
+</form>
+{% endblock %}

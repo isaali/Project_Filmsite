@@ -1,0 +1,257 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Mijn profiel
+{% endblock %}
+
+{% block main %}
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+tr:nth-child(even) {
+  background-color: #e6e6e6;
+}
+
+</style>
+
+<center><h2>Mijn profiel</h2></center>
+<hr>
+
+<div class="row">
+  <div class="column" style="background-color:#ccc;">
+    <center>
+      <h2><a href="/wachtwoordgebruikers"><font color="black">Wachtwoord wijzigen</font></a></h2>
+      <p></p>
+    </center>
+  </div>
+  <div class="column" style="background-color:#eee;">
+    <center>
+      <h2><a href="/accountverwijderen"><font color="black">Account verwijderen</font></a></h2>
+    </center>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/favorieten"><font color="black"><u>Favorieten</u></font></a></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Favoriete films</th>
+          </tr>
+          <form action="/filminfo" method="post">
+            {% for favoriet in favorieten %}
+            <tr>
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{favoriet.film_id}}">{{favoriet.titel}}</button></td>
+            </tr>
+            {% endfor %}
+          </form>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/checkins"><font color="black"><u>Check-ins</u></font></a></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Gekeken films</th>
+          </tr>
+          {% for checkin in checkins %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{checkin.film_id}}">{{checkin.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/mijnlijsten"><font color="black"><u>Lijsten</u></font></a></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Lijstnamen</th>
+          </tr>
+          {% for lijst in lijsten %}
+          <tr>
+            <form action="/lijst" method="post">
+              <td><button class="btn btn-link" type="submit" name="button" value="{{lijst.lijstnaam}}">{{lijst.lijstnaam}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/mijnlijsten"><font color="black"><u>Gezamenlijke lijsten</u></font></a></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Lijstnamen</th>
+          </tr>
+          {% for lijst in lijsten2 %}
+          <tr>
+            <form action="/gezlijst" method="post">
+              <input type="hidden" name="vriend" value="{{lijst.gebruiker2}}"></input>
+              <td><button class="btn btn-link" type="submit" name="button" value="{{lijst.lijstnaam}}">{{lijst.lijstnaam}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+          {% for lijst in lijsten3 %}
+          <tr>
+            <form action="/gezlijst" method="post">
+              <input type="hidden" name="vriend" value="{{lijst.gebruiker}}"></input>
+              <td><button class="btn btn-link" type="submit" name="button" value="{{lijst.lijstnaam}}">{{lijst.lijstnaam}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/tips"><font color="black"><u>Tips van vrienden voor mij</u></font></a></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Titels</th>
+          </tr>
+          {% for tip in aanbevelingen %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{tip.film_id}}">{{tip.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><u>Tips voor vrienden van mij</u></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Titels</th>
+          </tr>
+          {% for tips in aanbevelingenvan %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{tips.film_id}}">{{tips.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/vriendenlijst"><font color="black"><u>Vrienden</u></font></a></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Namen</th>
+          </tr>
+          {% for vriend in vrienden %}
+          <tr>
+            <form action="/vriendinfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="profiel" value="{{vriend.van}}">{{vriend.van}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+          {% for vriend in vrienden1 %}
+          <tr>
+            <form action="/vriendinfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="profiel1" value="{{vriend.naar}}">{{vriend.naar}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/historie"><font color="black"><u>Kijkgeschiedenis</u></font></a></h5>
+        <hr>
+        <table>
+          <tr>
+            <th>Titels</th>
+          </tr>
+          {% for historie in historie %}
+          <tr>
+            <form action="/filminfo" method="post">
+              <td><button class="btn btn-link" type="submit" name="tmdb_id" value="{{historie.film_id}}">{{historie.titel}}</button></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Get the elements with class="column"
+var elements = document.getElementsByClassName("column");
+
+// Declare a loop variable
+var i;
+
+// Grid View
+function gridView() {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].style.width = "50%";
+  }
+}
+</script>
+{% endblock %}

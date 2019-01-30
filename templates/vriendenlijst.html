@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vriendenlijst
+{% endblock %}
+
+{% block main %}
+<style type='text/css'>
+  p {
+    padding: 5px;
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
+
+<center><strong><h2>Vriendenlijst</h2></strong></center>
+<br>
+<table>
+  <tr>
+    <th>Vriend</th>
+    <th>Link naar profiel</th>
+    <th>Vrienden sinds</th>
+    <th>Verwijder vriend</th>
+  </tr>
+
+{% for vriend in vrienden %}
+  <tr>
+    <td>{{vriend.van}}</td>
+    <form action="/vriendinfo" method="post">
+      <td> <button type="submit" name="profiel" value="{{vriend.van}}" class="btn btn-outline-primary"><i class="fa fa-user fa-fw"></i> Link naar profiel</button> </td>
+    </form>
+    <td>{{vriend.datum}}</td>
+    <form action="/verwijdervriendredirect" method="post">
+      <td><button type="submit" name="verwijder" value="{{vriend.van}}" class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw"></i> Verwijder {{vriend.van}}</button></td>
+    </form>
+  </tr>
+{% endfor %}
+
+{% for vriend in vrienden1 %}
+  <tr>
+    <td>{{vriend.naar}}</td>
+    <form action="/vriendinfo" method="post">
+      <td> <button type="submit" name="profiel1" value="{{vriend.naar}}" class="btn btn-outline-primary"><i class="fa fa-user fa-fw"></i> Link naar profiel</button> </td>
+    </form>
+    <td>{{vriend.datum}}</td>
+    <form action="/verwijdervriendredirect" method="post">
+      <td><button type="submit" name="verwijder1" value="{{vriend.naar}}" class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw"></i> Verwijder {{vriend.naar}}</button></td>
+    </form>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

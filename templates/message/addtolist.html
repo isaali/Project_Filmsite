@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Film toegevoegd aan lijst
+{% endblock %}
+
+{% block main %}
+<center>
+    <h2>
+        <strong>
+            {{tmdb.original_title}} is met succes toegevoegd aan je lijst "{{lijstnaam}}" {% if vriend is not none %} met: {{vriend}} {% endif %}!
+        </strong>
+    </h2>
+</center>
+<hr>
+<center>
+    <a href="/mijnlijsten"><button class="btn btn-primary">Ga naar je lijsten</button></a>
+    <a href="/index"><button class="btn btn-primary">Ga terug naar de homepage</button></a>
+</center>
+<hr>
+{% endblock %}

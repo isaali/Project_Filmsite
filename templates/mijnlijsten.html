@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Mijn lijsten
+{% endblock %}
+
+{% block main %}
+<style>
+.primary {color: #0000FF;}
+
+  p {
+    padding: 5px;
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+</style>
+<center><strong><h2>Mijn lijsten</h2></strong></center>
+
+<p style="text-align:left;">
+  <button type="button" name="click" class="btn btn-outline-info"><i class="fa fa-plus" aria-hidden="true"></i> Voeg gezamenlijke lijst toe met:</button>
+  <button class="btn btn-outline-info" name="click2" style="float:right;"><i class="fa fa-plus" aria-hidden="true"></i> Voeg lijst toe</button>
+</p>
+<form action="/gezamenlijkelijstgemaakt" method="post">
+  <div id="lijstContainer" style="display:none;">
+    <div class="col-md-2 col-md-offset-3">
+      <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="gez_lijstnaam" placeholder="Geef lijst een naam" type="text" required/>
+      </div>
+    </div>
+    <label for="action"></label>
+
+    <select name="vriendvan" id="action">
+      {% for vriend in vrienden %}
+      <option value="{{vriend.van}}" name="vriendvan">{{vriend.van}}</option>
+      {% endfor %}
+      {% for vriend in vrienden1 %}
+      <option value="{{vriend.naar}}" name="vriendvan">{{vriend.naar}}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-outline-info btn-sm" name="submit" value="submit">Voeg toe</button>
+  </div>
+</form>
+<form action="/lijstgemaakt" method="post">
+  <div id="lijstContainer1" style="display:none;">
+    <div class="col-md-2 col-md-offset-3" style="float:right;">
+      <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="lijstnaam" placeholder="Geef lijst een naam" type="text" required/>
+        <br>
+        <button type="submit" class="btn btn-outline-info btn-sm" name="submit" value="submit">Voeg toe</button>
+      </div>
+    </div>
+  </div>
+</form>
+</p>
+
+<table>
+  <tr>
+    <th>Lijst</th>
+    <th>Lijst met</th>
+    <th>Link naar lijst</th>
+    <th>Verwijder lijst</th>
+  </tr>
+
+{% for lijst in lijsten %}
+  <tr>
+    <td>{{lijst.lijstnaam}}</td>
+    <td>
+      -
+    </td>
+    <form action="/lijst" method="post">
+      <td>
+        <button type="submit" name="button" value="{{lijst.lijstnaam}}" class="btn btn-outline-dark btn-sm">Link naar lijst</button>
+      </td>
+    </form>
+    <form action="/removelist" method="post">
+      <td><button type="submit" name="lijstnaam" value="{{lijst.lijstnaam}}" class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw"></i> Verwijder {{lijst.lijstnaam}}</button></td>
+    </form>
+  </tr>
+{% endfor %}
+
+{% for lijst in lijsten2 %}
+  <tr>
+    <td>{{lijst.lijstnaam}}</td>
+    <td>
+      <form action="/vriendinfo" method="post">
+      Gezamenlijke lijst met: <button class="btn btn-link" name="vriend1" type="submit" value="{{lijst.gebruiker2}}">{{lijst.gebruiker2}}</button>
+    </form>
+    </td>
+    <form action="/gezlijst" method="post">
+      <td>
+        <input type="hidden" name="vriend" value="{{lijst.gebruiker2}}"></input>
+        <button type="submit" name="button" value="{{lijst.lijstnaam}}" class="btn btn-outline-dark btn-sm">Link naar lijst</button>
+      </td>
+    </form>
+    <form action="/removelist" method="post">
+      <input type="hidden" name="vriend" value="{{lijst.gebruiker2}}"></input>
+      <td><button type="submit" name="lijstnaam" value="{{lijst.lijstnaam}}" class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw"></i> Verwijder {{lijst.lijstnaam}}</button></td>
+    </form>
+  </tr>
+{% endfor %}
+
+{% for lijst in lijsten3 %}
+  <tr>
+    <td>{{lijst.lijstnaam}}</td>
+    <td>
+      <form action="/vriendinfo" method="post">
+      Gezamenlijke lijst met: <button class="btn btn-link" name="vriend2" type="submit" value={{lijst.gebruiker}}>{{lijst.gebruiker}}</button>
+    </form>
+    </td>
+    <form action="/gezlijst" method="post">
+      <td>
+        <input type="hidden" name="vriend" value="{{lijst.gebruiker}}"></input>
+        <button type="submit" name="button" value="{{lijst.lijstnaam}}" class="btn btn-outline-dark btn-sm">Link naar lijst</button>
+      </td>
+    </form>
+    <form action="/removelist" method="post">
+      <input type="hidden" name="vriend" value="{{lijst.gebruiker}}"></input>
+      <td><button type="submit" name="lijstnaam" value="{{lijst.lijstnaam}}" class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw"></i> Verwijder {{lijst.lijstnaam}}</button></td>
+    </form>
+  </tr>
+{% endfor %}
+</table>
+
+<script>
+$(document).ready(function(){
+  $("[name=click]").click(function(){
+    $("#lijstContainer").toggle();
+    $("#lijstContainer1").hide();
+  });
+});
+
+$(document).ready(function(){
+  $("[name=click2]").click(function(){
+    $("#lijstContainer1").toggle();
+    $("#lijstContainer").hide();
+  });
+});
+</script>
+{% endblock %}

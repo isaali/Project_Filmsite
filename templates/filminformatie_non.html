@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Filminformatie
+{% endblock %}
+
+{% block main %}
+<style>
+  #wrap {
+     width:95%;
+     margin:0 auto;
+  }
+  #linkerkolom {
+     float:left;
+     width:25%;
+     padding: 20px;
+  }
+  #rechterkolom {
+     float:right;
+     width:75%;
+  }
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 800px) {
+    #linkerkolom {
+      width: 100%;
+    }
+    #rechterkolom {
+      width: 100%;
+    }
+  }
+  #linker {
+    float:left;
+    width:25%;
+  }
+</style>
+
+<center><h3>{{tmdb.original_title}}</h3></center>
+<hr>
+  <div id="wrap">
+    <div id="linkerkolom">
+      <p>
+        <img src="http://image.tmdb.org/t/p/w185{{tmdb.poster_path}}" class="homepage_poster">
+      </p>
+    </div>
+      <div id="rechterkolom">
+
+      {# Geen OMDb info gevonden #}
+      {% if omdb == None %}
+
+      {# Genoeg stemmen #}
+      {% if tmdb.vote_count > 20 %}
+        <h4 style="display: inline"><b>Score: </b></h4><h5 style="display: inline">{{tmdb.vote_average}}</h5>
+        <p><a>Dit is een alternatieve score, afkomstig van <i>TheMovieDatabase</i> i.p.v. IMDb.</a></p>
+        {# Niet genoeg stemmen #}
+        {% else %}
+        <h4 style="display: inline"><b>Score: </b></h4><h5 style="display: inline">Niet genoeg stemmen beschikbaar.</h5>
+        {% endif %}
+        <h3><b>Jaar: </b> {{tmdb.release_date[:4]}}</h3>
+        <a><b>Omschrijving: </b>{{tmdb.overview}}</a>
+
+        {# Wel OMDb info gevonden #}
+        {% else %}
+
+        <p><h4 style="display: inline"><b>Score: </b></h4><h5 style="display: inline">{{omdb.imdbRating}}</h5></p>
+
+        <p><h4 style="display: inline"><b>Jaar: </b></h4><h5 style="display: inline">{{omdb.Year}}</h5></p>
+
+        <p><h4><b>Regisseur(s): </b></h4><h6>{{omdb.Director}}</h6></p>
+
+        <p><h4><b>Hoofdrolspelers: </b></h4><h6>{{omdb.Actors}}</h6></p>
+
+        <p><h4><b>Schrijver(s): </b></h4><h6>{{omdb.Writer}}</h6></p>
+
+        <h4><b>Omschrijving: </b></h4>
+        <p>{{tmdb.overview}}</p>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </hr>
+{% endblock %}
+

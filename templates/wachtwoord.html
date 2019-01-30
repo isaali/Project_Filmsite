@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Wachtwoord vergeten
+{% endblock %}
+
+{% block main %}
+<center><h3> Wachtwoord wijzigen met beveiligingsvraag </h3></center>
+<hr>
+<center>
+    <form action="{{ url_for('wachtwoordvergeten') }}" role="form" method="post">
+        <div class="form-group">
+            <button type="submit" id="submit" class="btn btn-outline-primary">Wachtwoord wijzigen</button>
+        </div>
+    </form>
+</center>
+{% endblock %}

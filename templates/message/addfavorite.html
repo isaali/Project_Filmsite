@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Film toegevoegd aan favorieten
+{% endblock %}
+
+{% block main %}
+<center><h2><strong>{{tmdb.original_title}} is met succes toegevoegd aan je favorieten!</strong></h2></center>
+<hr>
+<center>
+    <a href="/favorieten"><button class="btn btn-primary">Ga naar je favorieten</button></a>
+    <a href="/index"><button class="btn btn-primary">Ga terug naar de homepage</button></a>
+</center>
+<hr>
+{% endblock %}

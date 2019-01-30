@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vriend verwijderen
+{% endblock %}
+
+{% block main %}
+<style>
+  p {
+    padding: 35px 0px 15px 0px;
+  }
+</style>
+<center><h2><p>Weet je zeker dat je {{vriend}} wilt verwijderen?</p></h2></center>
+<hr>
+<center>
+  <form action="/verwijdervriend" method="post">
+    <button type="submit" name="verwijder1" value="{{vriend}}" class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw"></i> Verwijder {{vriend}}</button>
+    <button type="button" href="/vriendenlijst" class="btn btn-outline-primary">Naar vriendenlijst</button>
+  </form>
+</center>
+{% endblock %}

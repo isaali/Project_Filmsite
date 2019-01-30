@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Lijst gemaakt
+{% endblock %}
+
+{% block main %}
+<style>
+  p {
+    padding: 50px 0px 15px 0px;
+  }
+</style>
+<center><h2><p>Lijst met lijstnaam {{lijstnaam}} is met succes aangemaakt!</p></h2></center>
+<center>
+  <div class="text">Jouw lijsten bekijken? <a href="/mijnlijsten">Klik hier!</a></div>
+  <div class="text">Keer terug naar de <a href="/index">homepage</a>!</div>
+</center>
+{% endblock %}

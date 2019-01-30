@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Check-ins
+{% endblock %}
+
+{% block main %}
+<style>
+.favoriet {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+.favoriet:hover {background: #eee;}
+.success {color: green;}
+.info {color: dodgerblue;}
+.warning {color: orange;}
+.danger {color: red;}
+.standaard {color: black;}
+grid {
+  display: grid;
+}
+</style>
+
+<center><h2>Mijn check-ins</h2></center>
+<hr>
+
+<div class="grid">
+    <form action="/filminfo" method="post">
+      {% for checkin in checkins %}
+      <button class="favoriet standaard" text-align="center" style="width:300px;" name="tmdb_id" value="{{checkin.film_id}}" type="submit"><img src="http://image.tmdb.org/t/p/w45{{checkin.afbeelding}}"></img><p>{{checkin.titel}}</p></button>
+      {% endfor %}
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vriend geweigerd
+{% endblock %}
+
+{% block main %}
+<style>
+  p {
+    padding: 50px 0px 15px 0px;
+  }
+</style>
+  <center><h2><p>{{ weigeren }} is geweigerd!</p></h2></center>
+<center>
+  <div class="text">Andere vrienschapsverzoeken bekijken?<a href="/verzoeken">Klik hier!</a></div>
+  <div class="text"><a href="/vriend">Zelf vrienden toevoegen?</a></div>
+</center>
+{% endblock %}

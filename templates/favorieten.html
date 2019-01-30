@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Favorieten
+{% endblock %}
+
+{% block main %}
+<style>
+.favoriet {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+.favoriet:hover {background: #eee;}
+.success {color: green;}
+.info {color: dodgerblue;}
+.warning {color: orange;}
+.danger {color: red;}
+.standaard {color: black;}
+grid {
+  display: grid;
+}
+</style>
+
+<center><h2>Favorieten</h2></center>
+<hr>
+
+<div class="grid">
+    <form action="/filminfo" method="post">
+      {% for favoriet in favorieten %}
+      <button class="favoriet standaard" text-align="center" style="width:300px;" name="tmdb_id" value="{{favoriet.film_id}}" type="submit"><img src="http://image.tmdb.org/t/p/w45{{favoriet.afbeelding}}"></img><p>{{favoriet.titel}}</p></button>
+      {% endfor %}
+    </form>
+</div>
+{% endblock %}

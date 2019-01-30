@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tips vrienden
+{% endblock %}
+
+{% block main %}
+<style type='text/css'>
+  p {
+    padding: 5px;
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .standaard {
+    cursor: pointer;
+  }
+</style>
+
+<center><strong><h2>Tips van vrienden</h2></strong></center>
+<br>
+<table>
+  <tr>
+    <th>Tip van vriend</th>
+    <th>Titel film</th>
+    <th>Poster film</th>
+    <th>Tip deze film een vriend</th>
+  </tr>
+
+{% for tip in aanbevelingen %}
+  <tr>
+    <form action="/vriendinfo" method="post">
+      <td><button type="submit" class="btn btn-link" name="profiel" value="{{tip.van}}">{{tip.van}}</button></td>
+    </form>
+    <form action="/filminfo" method="post">
+      <td><button type="submit" class="btn btn-link" name="tmdb_id" value="{{tip.film_id}}">{{tip.titel}}</button></td>
+    </form>
+    <form action="/filminfo" method="post">
+      <td><button class="favoriet standaard" text-align="center" style="width:300px;" name="tmdb_id" value="{{tip.film_id}}" type="submit"><img src="http://image.tmdb.org/t/p/w45{{tip.afbeelding}}"></img></td>
+    </form>
+    <td>
+      <form action="/tipvriend" method="post">
+        <div id="lijstContainer">
+          <center>
+            <label for="action"></label>
+            <select name="tipvriend" id="action">
+              <option disabled selected>Vrienden</option>
+              {% for vriend in vrienden %}
+              <option value="{{vriend.van}}" name="tipvriend">{{vriend.van}}</option>
+              {% endfor %}
+              {% for vriend in vrienden1 %}
+              <option value="{{vriend.naar}}" name="tipvriend">{{vriend.naar}}</option>
+              {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-outline-primary btn-sm" name="buttonvriend" value="{{tip.film_id}}">Tip</button>
+          </center>
+        </div>
+      </form>
+    </td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

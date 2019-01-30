@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vriendschapsverzoeken
+{% endblock %}
+
+{% block main %}
+<center><bold><h2>Vriendschapsverzoeken</h2></bold></center>
+<hr>
+<form action="/verzoeken" method="post">
+  <div class="form-group">
+    <div class="col-md-12 control">
+      {% for verzoek in verzoeken %}
+      <ul style="list-style-type:square;">
+        <li>
+          <p><h5>Vriendschapsverzoek van {{verzoek.van}} !</h5></p>
+          <button class="btn btn-outline-success btn-sm" name="accepteren" value="{{verzoek.van}}" type="submit">Vriend toevoegen</button>
+          <button class="btn btn-outline-danger btn-sm" name="weigeren" value="_{{verzoek.van}}" type="submit">Weigeren</button>
+        </li>
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
+</form>
+<hr>
+<center><strong><h5>Zie hier jouw <a href="/vriendenlijst">vrienden</a>!</h5></strong></center>
+{% endblock %}

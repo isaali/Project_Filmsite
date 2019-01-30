@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Zoekresultaten
+{% endblock %}
+
+{% block main %}
+<style>
+  #container{
+  text-align: center;
+  }
+  form { display: inline-block; }
+  #button {
+  display:inline-block;
+  /**other codes**/
+  }
+</style>
+<center><bold><h3>Zoekresultaten</h3></bold></center>
+<hr>
+  <center>
+    <!-- Tabellen in JinJa; https://stackoverflow.com/questions/9198334/how-to-build-up-a-html-table-with-a-simple-for-loop-in-jinja2 -->
+
+    <div id="container">
+    {%- if zoekresultaten %}
+      {%- for i in zoekresultaten -%}
+
+        {% if session.user_id and i.original_language == "nl"%}
+        {# Laad filminfo() als er op poster wordt geklikt. #}
+        <form action="/filminfo" method="post">
+          <input type="hidden" name="tmdb_id" value="{{i.id}}">
+          <button type="submit" name="tmdb_id"><IMG src="http://image.tmdb.org/t/p/w185{{i.poster_path}}" title="{{i.title}} ({{i.release_date[:4]}})"></button>
+        </form>
+
+        {% elif not session.user_id and i.original_language == "nl"%}
+        {# Laad filminfo_non() als er op poster wordt geklikt. #}
+        <form action="/filminfo_non" method="post">
+          <input type="hidden" name="tmdb_id" value="{{i.id}}">
+          <button type="submit" name="tmdb_id"><IMG src="http://image.tmdb.org/t/p/w185{{i.poster_path}}" title="{{i.title}} ({{i.release_date[:4]}})"></button>
+        </form>
+        {% endif %}
+      {%- endfor -%}
+
+    {% else %}
+      <p><h4>Er zijn geen resultaten.</h4></p>
+      <center><button onclick="goBack()" class="btn btn-primary">Ga terug naar de vorige pagina</button></center>
+
+      <script>
+          function goBack() {
+              window.history.back();
+          }
+      </script>
+
+
+    {% endif %}
+    </div>
+
+  </center>
+</hr>
+{% endblock %}

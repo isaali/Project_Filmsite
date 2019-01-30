@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+<style>
+    form { display: inline-block; }
+    #button {
+    display:inline-block;
+    /**other codes**/
+    }
+</style>
+
+<center><bold><h3>Populairste Nederlandse films</h3></bold><hr>
+
+{%- for i in popular[:12] -%}
+    <form action="/filminfo_non" method="post">
+        <input type="hidden" name="tmdb_id" value="{{i.id}}"></input>
+            <button type="submit">
+                {% if not i.poster_path %}
+                <IMG style="cursor:pointer" title="{{i.title}} ({{i.release_date[:4]}})" src="https://hdencode.com/wp-content/uploads/2019/01/no-poster.jpg">
+                {% else %}
+                <IMG style="cursor:pointer" title="{{i.title}} ({{i.release_date[:4]}})" src="http://image.tmdb.org/t/p/w185{{i.poster_path}}">
+                {% endif %}
+            </button>
+    </form>
+{%- endfor -%}
+
+<hr><bold><h3>Nieuwe Nederlandse films</h3></bold>
+
+{%- for i in new[:12] -%}
+    <form action="/filminfo_non" method="post">
+        <input type="hidden" name="tmdb_id" value="{{i.id}}"></input>
+            <button type="submit">
+                {% if not i.poster_path %}
+                <IMG style="cursor:pointer" title="{{i.title}} ({{i.release_date[:4]}})" src="https://hdencode.com/wp-content/uploads/2019/01/no-poster.jpg">
+                {% else %}
+                <IMG style="cursor:pointer" title="{{i.title}} ({{i.release_date[:4]}})" src="http://image.tmdb.org/t/p/w185{{i.poster_path}}">
+                {% endif %}
+            </button>
+    </form>
+
+{%- endfor -%}
+</center>
+{% endblock %}
