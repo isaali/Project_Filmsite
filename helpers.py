@@ -170,7 +170,13 @@ def addtohistory(tmdb_id, tmdb_response):
     historie = db.execute("SELECT film_id FROM historie WHERE gebruiker=:gebruiker", gebruiker = gebruiker())
 
     # insert into historie if film_id is not already in this table for this user
-    if len(historie) == 0 or (tmdb_id in [i["film_id"] for i in historie] and len(historie) != 0):
+    if len(historie) == 0:
+        db.execute("INSERT INTO historie (gebruiker, film_id, titel, afbeelding) VALUES (:gebruiker, :film_id, :titel, :afbeelding)",
+                    gebruiker = gebruiker(), film_id = tmdb_id, titel = tmdb_response["original_title"],
+                    afbeelding = tmdb_response["poster_path"])
+
+    alinhistorie = db.execute("SELECT * FROM historie WHERE film_id=:film_id AND gebruiker=:gebruiker", gebruiker=gebruiker(), film_id=tmdb_id)
+    if not alinhistorie:
         db.execute("INSERT INTO historie (gebruiker, film_id, titel, afbeelding) VALUES (:gebruiker, :film_id, :titel, :afbeelding)",
                     gebruiker = gebruiker(), film_id = tmdb_id, titel = tmdb_response["original_title"],
                     afbeelding = tmdb_response["poster_path"])
