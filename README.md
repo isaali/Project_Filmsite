@@ -3,7 +3,7 @@
 #### Gerard Noordhuis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11919582
 #### Patrick Smit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11433604
 
-### [Video](https://www.youtube.com/upload): demo
+### [Video](https://www.youtube.com/watch?v=QobMlIQzkgE&feature=youtu.be): demo
 
 ### [Schetsen](https://docs.google.com/presentation/d/1Dk9pYlrxR6hi45ncdenz7bOs3y8t3Wdz3CnpoxP1xaI/edit?usp=sharing)
 Bekijk de concepten/schetsen op Google Slides^.
