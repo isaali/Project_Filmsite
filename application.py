@@ -60,16 +60,16 @@ def accountverwijderen():
             return apology("Het opgegeven wachtwoord klopt niet")
 
         else:
+            gebruikersnaam=gebruiker()
             # user will be logged out
             session.clear()
 
             # delete user from database
-            db.execute("DELETE FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam", gebruikersnaam=gebruiker())
-            db.execute("DELETE FROM verzoeken WHERE naar=:naar OR van=:van", naar=gebruiker(), van=gebruiker())
+            db.execute("DELETE FROM gebruikers WHERE gebruikersnaam=:gebruikersnaam", gebruikersnaam=gebruikersnaam)
+            db.execute("DELETE FROM verzoeken WHERE naar=:naar OR van=:van", naar=gebruikersnaam, van=gebruikersnaam)
 
             # returns message that account has been deleted (other paramaters are for notifications)
-            return render_template("/message/verwijderd.html", lengte = lengte_vv(), tipslengte = tipslength(),
-                                    totaal= (lengte_vv()+ tipslength()))
+            return render_template("/message/verwijderd.html")
 
     # if the request method is not post, render the accountverwijderen template (other paramaters are for notifications)
     return render_template("accountverwijderen.html", lengte = lengte_vv(), tipslengte = tipslength(),
